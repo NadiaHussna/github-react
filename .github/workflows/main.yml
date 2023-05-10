@@ -65,7 +65,7 @@ sonarqube:
         run: sonar-scanner
         env:
           SONAR_HOST_URL: http://127.0.0.1:9000/
-          SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   DeployDev:
     name: Deploy to DEV Environment
