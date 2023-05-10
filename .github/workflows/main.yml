@@ -55,6 +55,20 @@ jobs:
       - name: Test prompt 
         run: echo "test has been executed"
 
+sonarqube:
+    name: SonarQube
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: SonarQube Scan
+        run: sonar-scanner
+        env:
+          SONAR_HOST_URL: http://localhost:9000
+          SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
+
+
+
 
   DeployDev:
     name: Deploy to DEV Environment
