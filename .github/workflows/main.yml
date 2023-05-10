@@ -20,7 +20,7 @@ on:
     workflow_dispatch:
 
 jobs:
-  build-and-test:
+  build-and-test-and-sonarqube:
 
     runs-on: ubuntu-latest 
     steps:
@@ -45,7 +45,7 @@ sonarqube:
     name: SonarQube Scan
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout code for SonarQube
         uses: actions/checkout@v1
       - name: SonarQube Scan
         run: sonar-scanner
