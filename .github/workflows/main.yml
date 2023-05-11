@@ -8,6 +8,7 @@ on:
       - staging
       - Pre-production
       - DEV
+      - SIT
 
   pull_request: 
     branches: 
@@ -16,6 +17,7 @@ on:
       - staging
       - Pre-production
       - DEV
+      - SIT
 
   workflow_dispatch:
 
