@@ -17,10 +17,10 @@ on:
       - Pre-production
       - DEV
 
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
-  build-and-test-and-sonarqube:
+  build-and-test:
 
     runs-on: ubuntu-latest 
     steps:
@@ -41,22 +41,24 @@ jobs:
       - name: Test prompt 
         run: echo "test has been executed"
 
-sonarqube:
-    name: SonarQube Scan
+  sonarcloud:
+    name: SonarCloud Scan
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code for SonarQube
-        uses: actions/checkout@v1
-      - name: SonarQube Scan
-        run: sonar-scanner
+      - name: Checkout code for SonarCloud
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
         env:
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   DeployDev:
     name: Deploy to DEV Environment
     if: github.event_name == 'pull_request'
-    needs: [test]
+    needs: [sonarcloud]
     runs-on: ubuntu-latest
     environment:
       name: DEV
@@ -69,7 +71,7 @@ sonarqube:
   DeploySIT:
     name: Deploy to SIT Environment
     if: github.event.ref == 'refs/heads/DEV'
-    needs: [test]
+    needs: [sonarcloud]
     runs-on: ubuntu-latest
     environment:
       name: develop
