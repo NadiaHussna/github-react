@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - SIT
 
 jobs:
   Build_and_Upload:
