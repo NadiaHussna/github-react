@@ -1,4 +1,4 @@
-name: 'Deploy to the Lambda Function'
+name: 'Deploy to the Lambda Function new'
 
 on:
   workflow_dispatch:
