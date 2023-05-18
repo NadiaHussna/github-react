@@ -1,12 +1,18 @@
 name: 'Deploy to the Lambda Function new'
 
-on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Repo Tag Name (Ex.: yyyymmdd-hhmmss)'
-        type: string
-        required: true
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       version:
+#         description: 'Repo Tag Name (Ex.: yyyymmdd-hhmmss)'
+#         type: string
+#         required: true
+
+on: 
+  push:
+    branches: 
+      - main
+      - DEV-test
 
 jobs:
   Deploy:
